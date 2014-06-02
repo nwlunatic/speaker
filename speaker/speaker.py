@@ -2,7 +2,7 @@ import argparse
 
 from flask import Flask, request, jsonify
 
-from src.speech_module import SpeechEngine
+from speech_engine import SpeechEngine
 
 
 parser = argparse.ArgumentParser(description='Speaker')
@@ -35,6 +35,10 @@ def speak():
     return jsonify(**response)
 
 
-if __name__ == "__main__":
+def main():
     args = parser.parse_args()
     app.run(host='0.0.0.0', port=args.port)
+
+
+if __name__ == "__main__":
+    main()
