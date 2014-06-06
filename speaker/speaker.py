@@ -2,7 +2,7 @@ import argparse
 
 from flask import Flask, request, jsonify
 
-from speech_engine import SpeechEngine
+from speech_engine import YandexSpeechEngine, GoogleSpeechEngine
 
 
 parser = argparse.ArgumentParser(description='Speaker')
@@ -11,7 +11,8 @@ parser.add_argument('-p', '--port', type=int, default=8080,
 
 
 app = Flask(__name__)
-se = SpeechEngine()
+gse = GoogleSpeechEngine()
+yse = YandexSpeechEngine()
 
 
 @app.route('/speak', methods=['POST', 'GET'])
@@ -19,6 +20,7 @@ def speak():
     response = {}
     text = request.args.get("text")
     language = request.args.get("language")
+    engine = request.args.get("engine")
 
     if text is None:
         response["code"] = 500
@@ -28,7 +30,16 @@ def speak():
     if language is None:
         language = "en"
 
-    se.speak(text, language)
+    if engine == "yandex":
+        engine = yse
+    elif engine == "google":
+        engine = gse
+    else:
+        engine = gse
+
+    print text, language, engine
+
+    engine.speak(text, language)
 
     response["code"] = 200
     response["result"] = 'ok'
@@ -41,4 +52,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(debug=True)
