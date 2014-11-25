@@ -11,7 +11,6 @@ setup(
     zip_safe = False,
     packages=find_packages(),
     install_requires=[
-        "PyAudio==0.2.8",
         "pydub==0.9.2",
         "flask==0.10",
         "requests==2.3.0"
