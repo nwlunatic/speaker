@@ -6,9 +6,8 @@ import requests
 import argparse
 
 
-URL = "http://uk-nettop-03.2gis.local"
-#URL = "http://localhost"
-PORT = 8080
+URL = "http://localhost"
+PORT = 5000
 
 
 def say(text, lang, engine="google"):
